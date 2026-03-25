@@ -6,73 +6,129 @@
     <title>BRAWL PICKER | Alpha</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400&display=swap" rel="stylesheet">
     <style>
-        body {
+        :root {
+            --ada-black: #000000;
+            --ada-gray: #f2f2f2;
+            --text-main: #333;
+        }
+
+        body, html {
             margin: 0;
+            padding: 0;
             font-family: 'Noto Sans JP', sans-serif;
-            background-color: #ffffff;
-            color: #333;
-            line-height: 1.6;
+            background-color: #fff;
         }
-        /* ADA風の細いヘッダー */
-        header {
-            padding: 40px 60px;
+
+        /* 1. 最上部：ロゴエリア */
+        .header-top {
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .main-logo {
+            font-weight: 100;
+            letter-spacing: 0.5em;
+            font-size: 1.8rem;
+            text-decoration: none;
+            color: var(--ada-black);
+        }
+
+        /* 2. ADA風：黒いナビゲーションバー */
+        .ada-nav {
+            background-color: var(--ada-black);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .ada-nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #eee;
+            justify-content: center;
+            gap: 50px;
         }
-        h1 {
+
+        .ada-nav a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 0.75rem;
             font-weight: 100;
             letter-spacing: 0.2em;
-            margin: 0;
-            font-size: 1.5rem;
+            transition: opacity 0.3s;
         }
-        /* メインビジュアル */
-        .hero {
-            height: 60vh;
+
+        .ada-nav a:hover {
+            opacity: 0.5;
+        }
+
+        /* 3. メインビジュアル */
+        .hero-view {
+            width: 100%;
+            height: 80vh;
+            background-image: url('hero.jpg'); /* ここにお好みの画像を！ */
+            background-size: cover;
+            background-position: center;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
-            background: #fafafa; /* ここに後で美しい画像を入れます */
+            justify-content: center;
+            position: relative;
         }
-        .hero h2 {
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            font-size: 2rem;
-            margin-bottom: 30px;
+
+        /* 画像の上に薄いオーバーレイ */
+        .hero-view::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.1);
         }
-        /* ツールへの入り口ボタン（ADA風に細く） */
-        .enter-button {
-            padding: 15px 50px;
-            border: 1px solid #333;
-            text-decoration: none;
-            color: #333;
-            font-weight: 300;
-            transition: 0.4s;
-            letter-spacing: 0.2em;
-        }
-        .enter-button:hover {
-            background-color: #333;
+
+        .hero-text {
+            position: relative;
+            z-index: 10;
             color: #fff;
+            text-align: center;
+        }
+
+        .hero-text h2 {
+            font-weight: 100;
+            font-size: 3rem;
+            letter-spacing: 0.3em;
+            margin: 0;
+            text-shadow: 0 0 20px rgba(0,0,0,0.3);
+        }
+
+        /* スマホ対応 */
+        @media (max-width: 768px) {
+            .ada-nav ul { gap: 15px; }
+            .ada-nav a { font-size: 0.6rem; }
+            .hero-text h2 { font-size: 1.5rem; }
         }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>BRAWL PICKER</h1>
-    <nav style="font-size: 0.8rem; letter-spacing: 0.1em;">
-        ALPHA VERSION 0.1
-    </nav>
-</header>
+    <div class="header-top">
+        <a href="index.html" class="main-logo">BRAWL PICKER</a>
+    </div>
 
-<div class="hero">
-    <h2>Logical Drafting.</h2>
-    <p style="font-weight: 100; color: #888; margin-bottom: 40px;">美しく、合理的なピックを。</p>
-    <a href="tool.html" class="enter-button">ENTER TOOLBOX</a>
-</div>
+    <nav class="ada-nav">
+        <ul>
+            <li><a href="tool.html">DRAFT CALCULATOR</a></li>
+            <li><a href="#database">DATABASE</a></li>
+            <li><a href="#journal">JOURNAL</a></li>
+            <li><a href="#system">SYSTEM</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero-view">
+        <div class="hero-text">
+            <h2>LOGICAL DRAFTING.</h2>
+            <p style="font-weight: 100; letter-spacing: 0.2em;">Alpha Version 0.1</p>
+        </div>
+    </div>
 
 </body>
 </html>
