@@ -8,34 +8,46 @@
     <style>
         :root {
             --ada-black: #000000;
-            --ada-gray: #f2f2f2;
-            --text-main: #333;
+            --ada-dark-gray: #1a1a1a;
+            --ada-light-gray: #888888;
+            --ada-white: #ffffff;
         }
 
         body, html {
             margin: 0;
             padding: 0;
             font-family: 'Noto Sans JP', sans-serif;
-            background-color: #fff;
+            background-color: var(--ada-black);
+            color: var(--ada-white);
+            overflow-x: hidden;
         }
 
-        /* 1. 最上部：ロゴエリア */
+        /* ADA風：最上部ロゴセクション */
         .header-top {
-            padding: 40px 0;
+            padding: 50px 0;
             text-align: center;
+            background-color: var(--ada-black);
         }
 
         .main-logo {
             font-weight: 100;
-            letter-spacing: 0.5em;
-            font-size: 1.8rem;
+            letter-spacing: 0.7em; /* 極限まで広げた字間 */
+            font-size: 1.6rem;
             text-decoration: none;
-            color: var(--ada-black);
+            color: var(--ada-white);
+            display: inline-block;
+            transition: opacity 0.4s;
         }
 
-        /* 2. ADA風：黒いナビゲーションバー */
+        .main-logo:hover {
+            opacity: 0.6;
+        }
+
+        /* ADA風：黒いナビゲーションバー（ツール一覧） */
         .ada-nav {
             background-color: var(--ada-black);
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
             padding: 15px 0;
             position: sticky;
             top: 0;
@@ -48,27 +60,29 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            gap: 50px;
+            gap: 60px; /* メニューの間隔を広く */
         }
 
         .ada-nav a {
-            color: #fff;
+            color: var(--ada-white);
             text-decoration: none;
-            font-size: 0.75rem;
-            font-weight: 100;
-            letter-spacing: 0.2em;
-            transition: opacity 0.3s;
+            font-size: 0.7rem;
+            font-weight: 300;
+            letter-spacing: 0.3em;
+            transition: color 0.3s, opacity 0.3s;
         }
 
         .ada-nav a:hover {
-            opacity: 0.5;
+            color: var(--ada-light-gray);
         }
 
-        /* 3. メインビジュアル */
+        /* メインビジュアルエリア（ヒーロー画像） */
         .hero-view {
             width: 100%;
             height: 80vh;
-            background-image: url('hero.jpg'); /* ここにお好みの画像を！ */
+            /* 画像がない場合は暗いグレーを表示。hero.jpgを置けば反映されます */
+            background-color: var(--ada-dark-gray);
+            background-image: url('hero.jpg'); 
             background-size: cover;
             background-position: center;
             display: flex;
@@ -77,34 +91,40 @@
             position: relative;
         }
 
-        /* 画像の上に薄いオーバーレイ */
-        .hero-view::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.1);
-        }
-
-        .hero-text {
-            position: relative;
-            z-index: 10;
-            color: #fff;
+        /* 中央のキャッチコピー */
+        .hero-copy {
             text-align: center;
+            z-index: 10;
         }
 
-        .hero-text h2 {
+        .hero-copy h2 {
             font-weight: 100;
-            font-size: 3rem;
-            letter-spacing: 0.3em;
+            font-size: 2.8rem;
+            letter-spacing: 0.5em;
             margin: 0;
-            text-shadow: 0 0 20px rgba(0,0,0,0.3);
+            text-transform: uppercase;
         }
 
-        /* スマホ対応 */
+        .hero-copy p {
+            font-weight: 100;
+            font-size: 0.9rem;
+            color: var(--ada-light-gray);
+            letter-spacing: 0.3em;
+            margin-top: 20px;
+        }
+
+        /* 下部のコンテンツ予備エリア */
+        .footer-spacer {
+            height: 200px;
+            background-color: var(--ada-black);
+        }
+
+        /* スマホ対応の微調整 */
         @media (max-width: 768px) {
-            .ada-nav ul { gap: 15px; }
-            .ada-nav a { font-size: 0.6rem; }
-            .hero-text h2 { font-size: 1.5rem; }
+            .ada-nav ul { gap: 20px; }
+            .ada-nav a { font-size: 0.6rem; letter-spacing: 0.15em; }
+            .hero-copy h2 { font-size: 1.2rem; }
+            .header-top { padding: 30px 0; }
         }
     </style>
 </head>
@@ -119,16 +139,19 @@
             <li><a href="tool.html">DRAFT CALCULATOR</a></li>
             <li><a href="#database">DATABASE</a></li>
             <li><a href="#journal">JOURNAL</a></li>
-            <li><a href="#system">SYSTEM</a></li>
+            <li><a href="#account">ACCOUNT</a></li>
+            <li><a href="#support">SUPPORT</a></li>
         </ul>
     </nav>
 
     <div class="hero-view">
-        <div class="hero-text">
+        <div class="hero-copy">
             <h2>LOGICAL DRAFTING.</h2>
-            <p style="font-weight: 100; letter-spacing: 0.2em;">Alpha Version 0.1</p>
+            <p>勝利を、より論理的に、より美しく。</p>
         </div>
     </div>
+
+    <div class="footer-spacer"></div>
 
 </body>
 </html>
