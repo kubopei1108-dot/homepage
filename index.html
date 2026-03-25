@@ -8,9 +8,10 @@
     <style>
         :root {
             --ada-black: #000000;
-            --ada-dark-gray: #1a1a1a;
+            --ada-dark-gray: #111111;
             --ada-light-gray: #888888;
             --ada-white: #ffffff;
+            --ada-accent: #555;
         }
 
         body, html {
@@ -20,6 +21,7 @@
             background-color: var(--ada-black);
             color: var(--ada-white);
             overflow-x: hidden;
+            height: 100%;
         }
 
         /* ADA風：最上部ロゴセクション */
@@ -31,7 +33,7 @@
 
         .main-logo {
             font-weight: 100;
-            letter-spacing: 0.7em; /* 極限まで広げた字間 */
+            letter-spacing: 0.7em;
             font-size: 1.6rem;
             text-decoration: none;
             color: var(--ada-white);
@@ -39,11 +41,7 @@
             transition: opacity 0.4s;
         }
 
-        .main-logo:hover {
-            opacity: 0.6;
-        }
-
-        /* ADA風：黒いナビゲーションバー（ツール一覧） */
+        /* ADA風：ナビゲーションバー */
         .ada-nav {
             background-color: var(--ada-black);
             border-top: 1px solid #222;
@@ -60,7 +58,7 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            gap: 60px; /* メニューの間隔を広く */
+            gap: 60px;
         }
 
         .ada-nav a {
@@ -69,18 +67,26 @@
             font-size: 0.7rem;
             font-weight: 300;
             letter-spacing: 0.3em;
-            transition: color 0.3s, opacity 0.3s;
+            transition: color 0.3s;
+            cursor: pointer;
         }
 
         .ada-nav a:hover {
             color: var(--ada-light-gray);
         }
 
-        /* メインビジュアルエリア（ヒーロー画像） */
+        /* メインコンテンツエリア */
+        .main-content {
+            position: relative;
+            width: 100%;
+            /* ヘッダーとナビの高さを除いた全画面 */
+            min-height: calc(100vh - 200px); 
+        }
+
+        /* 初期表示：ヒーロービュー */
         .hero-view {
             width: 100%;
             height: 80vh;
-            /* 画像がない場合は暗いグレーを表示。hero.jpgを置けば反映されます */
             background-color: var(--ada-dark-gray);
             background-image: url('hero.jpg'); 
             background-size: cover;
@@ -88,43 +94,41 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
+            transition: opacity 0.5s;
         }
 
-        /* 中央のキャッチコピー */
         .hero-copy {
             text-align: center;
             z-index: 10;
         }
 
         .hero-copy h2 {
-            font-weight: 100;
-            font-size: 2.8rem;
-            letter-spacing: 0.5em;
-            margin: 0;
-            text-transform: uppercase;
+            font-weight: 100; font-size: 2.8rem; letter-spacing: 0.5em; margin: 0; text-transform: uppercase;
         }
 
-        .hero-copy p {
-            font-weight: 100;
-            font-size: 0.9rem;
-            color: var(--ada-light-gray);
-            letter-spacing: 0.3em;
-            margin-top: 20px;
+        /* 計算機埋め込みエリア（最初は非表示） */
+        #calculator-container {
+            display: none;
+            width: 100%;
+            height: calc(100vh - 65px); /* ナビバーの高さ分を引く */
+            background: #000;
         }
 
-        /* 下部のコンテンツ予備エリア */
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         .footer-spacer {
-            height: 200px;
+            height: 100px;
             background-color: var(--ada-black);
         }
 
-        /* スマホ対応の微調整 */
         @media (max-width: 768px) {
             .ada-nav ul { gap: 20px; }
-            .ada-nav a { font-size: 0.6rem; letter-spacing: 0.15em; }
-            .hero-copy h2 { font-size: 1.2rem; }
-            .header-top { padding: 30px 0; }
+            .ada-nav a { font-size: 0.6rem; }
+            .hero-copy h2 { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -136,7 +140,7 @@
 
     <nav class="ada-nav">
         <ul>
-            <li><a href="tool.html">DRAFT CALCULATOR</a></li>
+            <li><a onclick="showCalculator()">DRAFT CALCULATOR</a></li>
             <li><a href="#database">DATABASE</a></li>
             <li><a href="#journal">JOURNAL</a></li>
             <li><a href="#account">ACCOUNT</a></li>
@@ -144,14 +148,33 @@
         </ul>
     </nav>
 
-    <div class="hero-view">
-        <div class="hero-copy">
-            <h2>LOGICAL DRAFTING.</h2>
-            <p>勝利を、より論理的に、より美しく。</p>
+    <div class="main-content">
+        <div id="hero-section" class="hero-view">
+            <div class="hero-copy">
+                <h2>LOGICAL DRAFTING.</h2>
+                <p style="font-weight: 100; font-size: 0.9rem; color: #888; letter-spacing: 0.3em; margin-top: 20px;">
+                    勝利を、より論理的に、より美しく。
+                </p>
+            </div>
+        </div>
+
+        <div id="calculator-container">
+            <iframe src="https://kubopei1108-dot.github.io/draft-app-ver2-copy/"></iframe>
         </div>
     </div>
 
     <div class="footer-spacer"></div>
+
+    <script>
+        function showCalculator() {
+            // ヒーローセクションを消して計算機を出す
+            document.getElementById('hero-section').style.display = 'none';
+            document.getElementById('calculator-container').style.display = 'block';
+            
+            // スムーズに上部へスクロール
+            window.scrollTo({top: document.querySelector('.ada-nav').offsetTop, behavior: 'smooth'});
+        }
+    </script>
 
 </body>
 </html>
